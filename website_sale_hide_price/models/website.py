@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import fields, models
-from odoo.osv.expression import Domain
+from odoo.fields import Domain
 from odoo.http import request
 
 
@@ -41,6 +41,6 @@ class Website(models.Model):
             return NotImplemented
         partner_show_price = self._get_current_partner_show_price()
         if not partner_show_price:
-            return Domain([("id", "=", False)]) if operator == "in" else Domain([])
+            return Domain(("id", "=", False)) if operator == "in" else Domain([])
         hide_price = operator == "not in"
-        return Domain([("website_hide_price", "=", hide_price)])
+        return Domain("website_hide_price", "=", hide_price)
